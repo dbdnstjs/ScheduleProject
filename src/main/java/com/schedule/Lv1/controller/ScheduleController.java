@@ -1,0 +1,44 @@
+package com.schedule.Lv1.controller;
+
+import com.schedule.Lv1.dto.ScheduleRequestDto;
+import com.schedule.Lv1.dto.ScheduleResponseDto;
+import com.schedule.Lv1.service.ScheduleService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+//restful api 구현
+@Controller
+@RestController//JSON 반환
+@RequiredArgsConstructor
+public class ScheduleController {
+    private final ScheduleService scheduleService;
+
+    @PostMapping("/schedules")
+    public ResponseEntity<ScheduleResponseDto> createSchedule(@RequestBody ScheduleRequestDto request) {
+        return ResponseEntity.ok(scheduleService.save(request));
+    }
+
+    @GetMapping("/schedules")
+    public ResponseEntity<List<ScheduleResponseDto>> getSchedules() {
+        return ResponseEntity.ok(scheduleService.findSchedules());
+    }
+
+    @GetMapping("/schedules/{scheduleId}")
+    public ResponseEntity<ScheduleResponseDto> getScheduleId(@PathVariable("scheduleId") Long scheduleId) {
+        return ResponseEntity.ok(scheduleService.findById(scheduleId));
+    }
+
+    @PutMapping("/schedules/{scheduleId}")
+    public ResponseEntity<ScheduleResponseDto>  updateSchedule(@PathVariable("scheduleId") Long scheduleId, @RequestBody ScheduleRequestDto request) {
+        return ResponseEntity.ok(scheduleService.updateSchedule(scheduleId, request));
+    }
+
+    @DeleteMapping("/schedules/{scheduleId}")
+    public void deleteSchedule(@PathVariable("scheduleId") Long scheduleId, @RequestBody ScheduleRequestDto request) {
+        scheduleService.deleteSchedule(scheduleId,request);
+    }
+}
