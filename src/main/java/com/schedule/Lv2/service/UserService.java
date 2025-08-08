@@ -2,7 +2,6 @@ package com.schedule.Lv2.service;
 
 import com.schedule.Lv2.dto.UserRequestDto;
 import com.schedule.Lv2.dto.UserResponseDto;
-import com.schedule.Lv2.entity.Schedule;
 import com.schedule.Lv2.entity.User;
 import com.schedule.Lv2.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
