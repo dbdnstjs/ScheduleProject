@@ -1,9 +1,6 @@
 package com.schedule.Lv2.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -11,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @Entity
 @RequiredArgsConstructor
+@Table(name = "schedule")
 public class Schedule extends Base {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) //PK 설정 및 DB가 자동으로 1씩 증가
@@ -20,11 +18,16 @@ public class Schedule extends Base {
     private String content;
     private String name;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
+
     public Schedule(String title, String content, String name) {
         this.title = title;
         this.content = content;
         this.name = name;
     }
+
     public void updateSchedule(String title, String content, String name) {
         this.title = title;
         this.content = content;

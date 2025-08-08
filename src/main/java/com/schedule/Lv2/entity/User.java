@@ -1,15 +1,15 @@
 package com.schedule.Lv2.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+
+import java.util.List;
 
 @Getter
 @Entity
 @RequiredArgsConstructor
+@Table(name = "user")
 public class User extends Base {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,6 +17,9 @@ public class User extends Base {
 
     private String name;
     private String email;
+
+    @OneToMany(mappedBy = "user")
+    private List<Schedule> schedules;
 
     public User(String name, String email) {
         this.name = name;
