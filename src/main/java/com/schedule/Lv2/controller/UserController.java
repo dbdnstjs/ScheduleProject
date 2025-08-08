@@ -2,7 +2,6 @@ package com.schedule.Lv2.controller;
 
 import com.schedule.Lv2.dto.UserRequestDto;
 import com.schedule.Lv2.dto.UserResponseDto;
-import com.schedule.Lv2.repository.UserRepository;
 import com.schedule.Lv2.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +12,6 @@ import java.util.List;
 @RestController//JSON 반환
 @RequiredArgsConstructor
 public class UserController {
-    private final UserRepository userRepository;
     private final UserService userService;
 
     @PostMapping("/users")

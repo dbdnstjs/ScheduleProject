@@ -82,7 +82,7 @@ public class ScheduleService {
     }
 
     @Transactional
-    public void deleteSchedule(Long id, ScheduleRequestDto request) {
+    public void deleteSchedule(Long id) {
         Schedule schedule = scheduleRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("Schedule with id " + id + " not found")
         );

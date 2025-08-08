@@ -5,7 +5,6 @@ import com.schedule.Lv2.dto.ScheduleResponseDto;
 import com.schedule.Lv2.service.ScheduleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -37,7 +36,7 @@ public class ScheduleController {
     }
 
     @DeleteMapping("/schedules/{scheduleId}")
-    public void deleteSchedule(@PathVariable("scheduleId") Long scheduleId, @RequestBody ScheduleRequestDto request) {
-        scheduleService.deleteSchedule(scheduleId,request);
+    public void deleteSchedule(@PathVariable("scheduleId") Long scheduleId) {
+        scheduleService.deleteSchedule(scheduleId);
     }
 }
