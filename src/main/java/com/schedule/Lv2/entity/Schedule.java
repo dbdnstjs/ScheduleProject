@@ -19,13 +19,11 @@ public class Schedule extends Base {
     private String title;
     private String content;
     private String name;
-    private String password;
 
-    public Schedule(String title, String content, String name, String password) {
+    public Schedule(String title, String content, String name) {
         this.title = title;
         this.content = content;
         this.name = name;
-        this.password = password;
     }
     public void updateSchedule(String title, String content, String name) {
         this.title = title;

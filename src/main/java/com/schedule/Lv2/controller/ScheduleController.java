@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 //restful api 구현
-@Controller
 @RestController//JSON 반환
 @RequiredArgsConstructor
 public class ScheduleController {

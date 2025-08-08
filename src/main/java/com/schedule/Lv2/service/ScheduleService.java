@@ -22,8 +22,7 @@ public class ScheduleService {
         Schedule schedule = new Schedule(
                 request.getTitle(),
                 request.getContent(),
-                request.getName(),
-                request.getPassword()
+                request.getName()
         );
         Schedule saveSchedule = scheduleRepository.save(schedule);
 
@@ -71,11 +70,7 @@ public class ScheduleService {
                 () -> new IllegalArgumentException("Schedule with id " + id + " not found")
         );
 
-        if (!schedule.getPassword().equals(request.getPassword())) {
-            throw new IllegalArgumentException("Passwords do not match");
-        }
-
-        schedule.updateSchedule(request.getTitle(),request.getContent(),request.getName());
+        schedule.updateSchedule(request.getTitle(), request.getContent(), request.getName());
         return new ScheduleResponseDto(
                 schedule.getId(),
                 schedule.getTitle(),
@@ -92,9 +87,6 @@ public class ScheduleService {
                 () -> new IllegalArgumentException("Schedule with id " + id + " not found")
         );
 
-        if (!schedule.getPassword().equals(request.getPassword())) {
-            throw new IllegalArgumentException("Passwords do not match");
-        }
         scheduleRepository.delete(schedule);
     }
 }
