@@ -19,7 +19,7 @@ public class UserController {
         return ResponseEntity.ok(userService.save(request));
     }
 
-    @PostMapping("/users")
+    @GetMapping("/users")
     public ResponseEntity<List<UserResponseDto>> getSchedule() {
         return ResponseEntity.ok(userService.findUsers());
     }
