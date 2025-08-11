@@ -13,15 +13,13 @@ public class ScheduleResponseDto {
     private Long id;
     private String title;
     private String content;
-    private String name;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    public ScheduleResponseDto(Long id, String title, String content, String name, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public ScheduleResponseDto(Long id, String title, String content, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.title = title;
         this.content = content;
-        this.name = name;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }

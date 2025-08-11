@@ -16,21 +16,18 @@ public class Schedule extends Base {
 
     private String title;
     private String content;
-    private String name;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
-    public Schedule(String title, String content, String name) {
+    public Schedule(String title, String content) {
         this.title = title;
         this.content = content;
-        this.name = name;
     }
 
-    public void updateSchedule(String title, String content, String name) {
+    public void updateSchedule(String title, String content) {
         this.title = title;
         this.content = content;
-        this.name = name;
     }
 }

@@ -21,8 +21,7 @@ public class ScheduleService {
     public ScheduleResponseDto save(ScheduleRequestDto request) {
         Schedule schedule = new Schedule(
                 request.getTitle(),
-                request.getContent(),
-                request.getName()
+                request.getContent()
         );
         Schedule saveSchedule = scheduleRepository.save(schedule);
 
@@ -30,7 +29,6 @@ public class ScheduleService {
                 saveSchedule.getId(),
                 saveSchedule.getTitle(),
                 saveSchedule.getContent(),
-                saveSchedule.getName(),
                 saveSchedule.getCreatedAt(),
                 saveSchedule.getUpdatedAt()
         );
@@ -43,7 +41,6 @@ public class ScheduleService {
                 schedule.getId(),
                 schedule.getTitle(),
                 schedule.getContent(),
-                schedule.getName(),
                 schedule.getCreatedAt(),
                 schedule.getUpdatedAt()
         )).toList();
@@ -58,7 +55,6 @@ public class ScheduleService {
                 schedule.getId(),
                 schedule.getTitle(),
                 schedule.getContent(),
-                schedule.getName(),
                 schedule.getCreatedAt(),
                 schedule.getUpdatedAt()
         );
@@ -70,12 +66,11 @@ public class ScheduleService {
                 () -> new IllegalArgumentException("Schedule with id " + id + " not found")
         );
 
-        schedule.updateSchedule(request.getTitle(), request.getContent(), request.getName());
+        schedule.updateSchedule(request.getTitle(), request.getContent());
         return new ScheduleResponseDto(
                 schedule.getId(),
                 schedule.getTitle(),
                 schedule.getContent(),
-                schedule.getName(),
                 schedule.getCreatedAt(),
                 schedule.getUpdatedAt()
         );
