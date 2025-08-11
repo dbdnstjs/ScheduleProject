@@ -17,13 +17,15 @@ public class User extends Base {
 
     private String name;
     private String email;
+    private String password;
 
     @OneToMany(mappedBy = "user")
     private List<Schedule> schedules;
 
-    public User(String name, String email) {
+    public User(String name, String email, String password) {
         this.name = name;
         this.email = email;
+        this.password = password;
     }
 
     public void updateUser(String name, String email) {

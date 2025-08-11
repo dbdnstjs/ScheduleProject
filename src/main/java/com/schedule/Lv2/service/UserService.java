@@ -19,7 +19,7 @@ public class UserService {
     public UserResponseDto save(UserRequestDto request) {
         User user = new User(
                 request.getName(),
-                request.getName()
+                request.getEmail()
         );
 
         User saveUser = userRepository.save(user);

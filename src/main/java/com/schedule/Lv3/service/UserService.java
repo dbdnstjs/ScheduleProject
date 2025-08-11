@@ -19,7 +19,8 @@ public class UserService {
     public UserResponseDto save(UserRequestDto request) {
         User user = new User(
                 request.getName(),
-                request.getName()
+                request.getEmail(),
+                request.getPassword()
         );
 
         User saveUser = userRepository.save(user);
@@ -65,6 +66,10 @@ public class UserService {
                 () -> new IllegalArgumentException("user with id " + id + " not found")
         );
 
+        if (!user.getPassword().equals(request.getPassword())) {
+            throw new IllegalArgumentException("passwords don't match");
+        }
+
         user.updateUser(request.getName(), request.getEmail());
         return new UserResponseDto(
                 user.getId(),
@@ -80,6 +85,11 @@ public class UserService {
         User user = userRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("user with id " + id + " not found")
         );
+
+        if (!user.getPassword().equals(request.getPassword())) {
+            throw new IllegalArgumentException("passwords don't match");
+        }
+
         userRepository.delete(user);
     }
 }
