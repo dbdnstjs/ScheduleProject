@@ -2,6 +2,7 @@ package com.schedule.Lv4.dto;
 
 //응답하는 데이터 서버 -> 클라
 
+import com.schedule.Lv4.entity.Schedule;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -16,11 +17,17 @@ public class ScheduleResponseDto {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    public ScheduleResponseDto(Long id, String title, String content, LocalDateTime createdAt, LocalDateTime updatedAt) {
-        this.id = id;
-        this.title = title;
-        this.content = content;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
+    //DTO 필드 초기화
+    private ScheduleResponseDto(Schedule schedule) {
+        this.id = schedule.getId();
+        this.title = schedule.getTitle();
+        this.content = schedule.getContent();
+        this.createdAt = schedule.getCreatedAt();
+        this.updatedAt = schedule.getUpdatedAt();
+    }
+
+    // 이 메서드를 이용해 DTO 객체 생성
+    public static ScheduleResponseDto of(Schedule schedule) {
+        return new ScheduleResponseDto(schedule);
     }
 }

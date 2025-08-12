@@ -17,74 +17,42 @@ public class UserService {
 
     @Transactional
     public UserResponseDto save(UserRequestDto request) {
-        User user = new User(
-                request.getName(),
-                request.getEmail(),
-                request.getPassword()
-        );
+        User user = new User(request.getName(), request.getEmail(), request.getPassword());
 
         User saveUser = userRepository.save(user);
 
-        return new UserResponseDto(
-                saveUser.getId(),
-                saveUser.getName(),
-                saveUser.getEmail(),
-                saveUser.getCreatedAt(),
-                saveUser.getUpdatedAt()
-        );
+        //정적 팩토리 메서드 레퍼런스 사용
+        return UserResponseDto.of(saveUser);
     }
 
     @Transactional(readOnly = true)
     public List<UserResponseDto> findUsers() {
         List<User> users = userRepository.findAll();
-        return users.stream().map(user -> new UserResponseDto(
-                user.getId(),
-                user.getName(),
-                user.getEmail(),
-                user.getCreatedAt(),
-                user.getUpdatedAt()
-        )).toList();
+        //정적 팩토리 메서드 레퍼런스 사용
+        return users.stream().map(UserResponseDto::of).toList();
     }
 
     @Transactional(readOnly = true)
     public UserResponseDto findById(Long id) {
-        User user = userRepository.findById(id).orElseThrow(
-                () -> new IllegalArgumentException("Schedule with id " + id + " not found")
-        );
-        return new UserResponseDto(
-                user.getId(),
-                user.getName(),
-                user.getEmail(),
-                user.getCreatedAt(),
-                user.getUpdatedAt()
-        );
+        User user = userRepository.findByIdOrThrow(id);
+        return UserResponseDto.of(user);
     }
 
     @Transactional
     public UserResponseDto updateUser(Long id, UserRequestDto request) {
-        User user = userRepository.findById(id).orElseThrow(
-                () -> new IllegalArgumentException("user with id " + id + " not found")
-        );
+        User user = userRepository.findByIdOrThrow(id);
 
         if (!user.getPassword().equals(request.getPassword())) {
             throw new IllegalArgumentException("passwords don't match");
         }
 
         user.updateUser(request.getName(), request.getEmail());
-        return new UserResponseDto(
-                user.getId(),
-                user.getName(),
-                user.getEmail(),
-                user.getCreatedAt(),
-                user.getUpdatedAt()
-        );
+        return UserResponseDto.of(user);
     }
 
     @Transactional
     public void deleteUser(Long id, UserRequestDto request) {
-        User user = userRepository.findById(id).orElseThrow(
-                () -> new IllegalArgumentException("user with id " + id + " not found")
-        );
+        User user = userRepository.findByIdOrThrow(id);
 
         if (!user.getPassword().equals(request.getPassword())) {
             throw new IllegalArgumentException("passwords don't match");

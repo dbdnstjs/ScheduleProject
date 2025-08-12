@@ -21,28 +21,28 @@ public class ScheduleService {
     public ScheduleResponseDto save(ScheduleRequestDto request) {
         Schedule schedule = new Schedule(request.getTitle(), request.getContent());
         Schedule saveSchedule = scheduleRepository.save(schedule);
-
-        return new ScheduleResponseDto(saveSchedule.getId(), saveSchedule.getTitle(), saveSchedule.getContent(), saveSchedule.getCreatedAt(), saveSchedule.getUpdatedAt());
+        //정적 팩토리 메서드 사용
+        return ScheduleResponseDto.of(saveSchedule);
     }
 
     @Transactional(readOnly = true)
     public List<ScheduleResponseDto> findSchedules() {
         List<Schedule> schedules = scheduleRepository.findAll();
-        return schedules.stream().map(schedule -> new ScheduleResponseDto(schedule.getId(), schedule.getTitle(), schedule.getContent(), schedule.getCreatedAt(), schedule.getUpdatedAt())).toList();
+        //정적 팩토리 메서드 레퍼런스 사용
+        return schedules.stream().map(ScheduleResponseDto::of).toList();
     }
 
     @Transactional(readOnly = true)
     public ScheduleResponseDto findById(Long id) {
         Schedule schedule = scheduleRepository.findByIdOrThrow(id);
-        //Schedule schedule = scheduleRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Schedule with id " + id + " not found"));
-        return new ScheduleResponseDto(schedule.getId(), schedule.getTitle(), schedule.getContent(), schedule.getCreatedAt(), schedule.getUpdatedAt());
+        return ScheduleResponseDto.of(schedule);
     }
 
     @Transactional
     public ScheduleResponseDto updateSchedule(Long id, ScheduleRequestDto request) {
         Schedule schedule = scheduleRepository.findByIdOrThrow(id);
         schedule.updateSchedule(request.getTitle(), request.getContent());
-        return new ScheduleResponseDto(schedule.getId(), schedule.getTitle(), schedule.getContent(), schedule.getCreatedAt(), schedule.getUpdatedAt());
+        return ScheduleResponseDto.of(schedule);
     }
 
     @Transactional

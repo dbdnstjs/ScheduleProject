@@ -1,5 +1,6 @@
 package com.schedule.Lv4.dto;
 
+import com.schedule.Lv4.entity.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -14,11 +15,15 @@ public class UserResponseDto {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    public UserResponseDto(Long id, String name, String email, LocalDateTime createdAt, LocalDateTime updatedAt) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
+    private UserResponseDto(User user) {
+        this.id = user.getId();
+        this.name = user.getName();
+        this.email = user.getEmail();
+        this.createdAt = user.getCreatedAt();
+        this.updatedAt = user.getUpdatedAt();
+    }
+
+    public static UserResponseDto of(User user) {
+        return new UserResponseDto(user);
     }
 }
