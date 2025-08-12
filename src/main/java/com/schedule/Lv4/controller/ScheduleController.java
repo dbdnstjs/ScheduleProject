@@ -12,30 +12,31 @@ import java.util.List;
 //restful api 구현
 @RestController//JSON 반환
 @RequiredArgsConstructor
+@RequestMapping("/schedules")
 public class ScheduleController {
     private final ScheduleService scheduleService;
 
-    @PostMapping("/schedules")
+    @PostMapping
     public ResponseEntity<ScheduleResponseDto> createSchedule(@RequestBody ScheduleRequestDto request) {
         return ResponseEntity.ok(scheduleService.save(request));
     }
 
-    @GetMapping("/schedules")
+    @GetMapping
     public ResponseEntity<List<ScheduleResponseDto>> getSchedules() {
         return ResponseEntity.ok(scheduleService.findSchedules());
     }
 
-    @GetMapping("/schedules/{scheduleId}")
+    @GetMapping("/{scheduleId}")
     public ResponseEntity<ScheduleResponseDto> getScheduleId(@PathVariable("scheduleId") Long scheduleId) {
         return ResponseEntity.ok(scheduleService.findById(scheduleId));
     }
 
-    @PutMapping("/schedules/{scheduleId}")
+    @PutMapping("/{scheduleId}")
     public ResponseEntity<ScheduleResponseDto> updateSchedule(@PathVariable("scheduleId") Long scheduleId, @RequestBody ScheduleRequestDto request) {
         return ResponseEntity.ok(scheduleService.updateSchedule(scheduleId, request));
     }
 
-    @DeleteMapping("/schedules/{scheduleId}")
+    @DeleteMapping("/{scheduleId}")
     public void deleteSchedule(@PathVariable("scheduleId") Long scheduleId) {
         scheduleService.deleteSchedule(scheduleId);
     }

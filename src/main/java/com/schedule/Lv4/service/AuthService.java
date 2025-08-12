@@ -23,8 +23,13 @@ public class AuthService {
     @Transactional(readOnly = true)
     public AuthResponse login(AuthRequest request) {
         User user = userRepository.findByEmail(request.getEmail()).orElseThrow(
-                ()-> new IllegalArgumentException("Invalid email address provided")
+                () -> new IllegalArgumentException("Invalid email address provided")
         );
+
+        if (!user.getPassword().equals(request.getPassword())) {
+            throw new IllegalArgumentException("passwords don't match");
+        }
+
         return new AuthResponse(user.getId());
     }
 }

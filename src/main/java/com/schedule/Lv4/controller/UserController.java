@@ -11,30 +11,31 @@ import java.util.List;
 
 @RestController//JSON 반환
 @RequiredArgsConstructor
+@RequestMapping("/users")
 public class UserController {
     private final UserService userService;
 
-    @PostMapping("/users")
+    @PostMapping
     public ResponseEntity<UserResponseDto> createUser(@RequestBody UserRequestDto request) {
         return ResponseEntity.ok(userService.save(request));
     }
 
-    @GetMapping("/users")
+    @GetMapping
     public ResponseEntity<List<UserResponseDto>> getSchedule() {
         return ResponseEntity.ok(userService.findUsers());
     }
 
-    @GetMapping("/users/{userId}")
+    @GetMapping("/{userId}")
     public ResponseEntity<UserResponseDto> getUserId(@PathVariable("userId") Long userId) {
         return ResponseEntity.ok(userService.findById(userId));
     }
 
-    @PutMapping("/users/{userId}")
+    @PutMapping("/{userId}")
     public ResponseEntity<UserResponseDto> updateUser(@PathVariable("userId") Long userId, @RequestBody UserRequestDto request) {
         return ResponseEntity.ok(userService.updateUser(userId, request));
     }
 
-    @DeleteMapping("/users/{userId}")
+    @DeleteMapping("/{userId}")
     public void deleteUser(@PathVariable("userId") Long userId, @RequestBody UserRequestDto request) {
         userService.deleteUser(userId, request);
     }
