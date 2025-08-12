@@ -19,68 +19,35 @@ public class ScheduleService {
 
     @Transactional
     public ScheduleResponseDto save(ScheduleRequestDto request) {
-        Schedule schedule = new Schedule(
-                request.getTitle(),
-                request.getContent()
-        );
+        Schedule schedule = new Schedule(request.getTitle(), request.getContent());
         Schedule saveSchedule = scheduleRepository.save(schedule);
 
-        return new ScheduleResponseDto(
-                saveSchedule.getId(),
-                saveSchedule.getTitle(),
-                saveSchedule.getContent(),
-                saveSchedule.getCreatedAt(),
-                saveSchedule.getUpdatedAt()
-        );
+        return new ScheduleResponseDto(saveSchedule.getId(), saveSchedule.getTitle(), saveSchedule.getContent(), saveSchedule.getCreatedAt(), saveSchedule.getUpdatedAt());
     }
 
     @Transactional(readOnly = true)
     public List<ScheduleResponseDto> findSchedules() {
         List<Schedule> schedules = scheduleRepository.findAll();
-        return schedules.stream().map(schedule -> new ScheduleResponseDto(
-                schedule.getId(),
-                schedule.getTitle(),
-                schedule.getContent(),
-                schedule.getCreatedAt(),
-                schedule.getUpdatedAt()
-        )).toList();
+        return schedules.stream().map(schedule -> new ScheduleResponseDto(schedule.getId(), schedule.getTitle(), schedule.getContent(), schedule.getCreatedAt(), schedule.getUpdatedAt())).toList();
     }
 
     @Transactional(readOnly = true)
     public ScheduleResponseDto findById(Long id) {
-        Schedule schedule = scheduleRepository.findById(id).orElseThrow(
-                () -> new IllegalArgumentException("Schedule with id " + id + " not found")
-        );
-        return new ScheduleResponseDto(
-                schedule.getId(),
-                schedule.getTitle(),
-                schedule.getContent(),
-                schedule.getCreatedAt(),
-                schedule.getUpdatedAt()
-        );
+        Schedule schedule = scheduleRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Schedule with id " + id + " not found"));
+        return new ScheduleResponseDto(schedule.getId(), schedule.getTitle(), schedule.getContent(), schedule.getCreatedAt(), schedule.getUpdatedAt());
     }
 
     @Transactional
     public ScheduleResponseDto updateSchedule(Long id, ScheduleRequestDto request) {
-        Schedule schedule = scheduleRepository.findById(id).orElseThrow(
-                () -> new IllegalArgumentException("Schedule with id " + id + " not found")
-        );
+        Schedule schedule = scheduleRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Schedule with id " + id + " not found"));
 
         schedule.updateSchedule(request.getTitle(), request.getContent());
-        return new ScheduleResponseDto(
-                schedule.getId(),
-                schedule.getTitle(),
-                schedule.getContent(),
-                schedule.getCreatedAt(),
-                schedule.getUpdatedAt()
-        );
+        return new ScheduleResponseDto(schedule.getId(), schedule.getTitle(), schedule.getContent(), schedule.getCreatedAt(), schedule.getUpdatedAt());
     }
 
     @Transactional
     public void deleteSchedule(Long id) {
-        Schedule schedule = scheduleRepository.findById(id).orElseThrow(
-                () -> new IllegalArgumentException("Schedule with id " + id + " not found")
-        );
+        Schedule schedule = scheduleRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Schedule with id " + id + " not found"));
 
         scheduleRepository.delete(schedule);
     }
