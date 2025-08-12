@@ -22,6 +22,11 @@ public class User extends Base {
     @OneToMany(mappedBy = "user")
     private List<Schedule> schedules;
 
+    public User(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
+
     public User(String name, String email, String password) {
         this.name = name;
         this.email = email;
