@@ -33,22 +33,21 @@ public class ScheduleService {
 
     @Transactional(readOnly = true)
     public ScheduleResponseDto findById(Long id) {
-        Schedule schedule = scheduleRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Schedule with id " + id + " not found"));
+        Schedule schedule = scheduleRepository.findByIdOrThrow(id);
+        //Schedule schedule = scheduleRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Schedule with id " + id + " not found"));
         return new ScheduleResponseDto(schedule.getId(), schedule.getTitle(), schedule.getContent(), schedule.getCreatedAt(), schedule.getUpdatedAt());
     }
 
     @Transactional
     public ScheduleResponseDto updateSchedule(Long id, ScheduleRequestDto request) {
-        Schedule schedule = scheduleRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Schedule with id " + id + " not found"));
-
+        Schedule schedule = scheduleRepository.findByIdOrThrow(id);
         schedule.updateSchedule(request.getTitle(), request.getContent());
         return new ScheduleResponseDto(schedule.getId(), schedule.getTitle(), schedule.getContent(), schedule.getCreatedAt(), schedule.getUpdatedAt());
     }
 
     @Transactional
     public void deleteSchedule(Long id) {
-        Schedule schedule = scheduleRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Schedule with id " + id + " not found"));
-
+        Schedule schedule = scheduleRepository.findByIdOrThrow(id);
         scheduleRepository.delete(schedule);
     }
 }
