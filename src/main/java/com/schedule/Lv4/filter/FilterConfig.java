@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 public class FilterConfig {
 
     @Bean
-    public FilterRegistrationBean loninFilter() {
+    public FilterRegistrationBean loginFilter() {
         FilterRegistrationBean<Filter> filterRegistrationBean = new FilterRegistrationBean<>();
         filterRegistrationBean.setFilter(new LoginFilter()); // filter 등록
         filterRegistrationBean.addUrlPatterns("/*"); // 전체 url에 적용
