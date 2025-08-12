@@ -8,7 +8,7 @@ import org.springframework.util.PatternMatchUtils;
 import java.io.IOException;
 
 public class LoginFilter implements Filter {
-    private static final String[] WHITE_LIST = {"/", "/signup", "login"}; // 인증을 하지 않아도 될 url path
+    private static final String[] WHITE_LIST = {"/", "/signup", "/login"}; // 인증을 하지 않아도 될 url path
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
