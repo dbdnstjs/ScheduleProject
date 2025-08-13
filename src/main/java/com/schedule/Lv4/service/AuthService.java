@@ -5,8 +5,10 @@ import com.schedule.Lv4.dto.AuthResponse;
 import com.schedule.Lv4.entity.User;
 import com.schedule.Lv4.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 
 @Service
@@ -23,10 +25,10 @@ public class AuthService {
     @Transactional(readOnly = true)
     public AuthResponse login(AuthRequest request) {
         User user = userRepository.findByEmail(request.getEmail()).orElseThrow(
-                () -> new IllegalArgumentException("Invalid email address provided")
+                () -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User not found")
         );
         if (!user.getPassword().equals(request.getPassword())) {
-            throw new IllegalArgumentException("passwords don't match");
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Wrong Password");
         }
 
         return new AuthResponse(user.getId());
