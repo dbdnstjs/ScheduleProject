@@ -1,5 +1,6 @@
 package com.schedule.Lv6.service;
 
+import com.schedule.Lv6.config.PasswordEncoder;
 import com.schedule.Lv6.dto.UserRequestDto;
 import com.schedule.Lv6.dto.UserResponseDto;
 import com.schedule.Lv6.entity.User;
@@ -16,6 +17,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Transactional
     public UserResponseDto save(UserRequestDto request) {
@@ -42,7 +44,7 @@ public class UserService {
     public UserResponseDto updateUser(Long id, UserRequestDto request) {
         User user = userRepository.findByIdOrThrow(id);
 
-        if (!user.getPassword().equals(request.getPassword())) {
+        if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "passwords don't match");
         }
         user.updateUser(request.getEmail(), request.getName());
@@ -54,7 +56,7 @@ public class UserService {
     public void deleteUser(Long id, UserRequestDto request) {
         User user = userRepository.findByIdOrThrow(id);
 
-        if (!user.getPassword().equals(request.getPassword())) {
+        if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "passwords don't match");
         }
 

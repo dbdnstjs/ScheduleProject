@@ -1,5 +1,6 @@
 package com.schedule.Lv6.service;
 
+import com.schedule.Lv6.config.PasswordEncoder;
 import com.schedule.Lv6.dto.AuthRequest;
 import com.schedule.Lv6.dto.AuthResponse;
 import com.schedule.Lv6.entity.User;
@@ -15,19 +16,19 @@ import org.springframework.web.server.ResponseStatusException;
 @RequiredArgsConstructor
 public class AuthService {
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Transactional
     public void signup(AuthRequest request) {
-        User user = new User(request.getEmail(), request.getName(),  request.getPassword());
+        String encodedPassword = passwordEncoder.encode(request.getPassword());
+        User user = new User(request.getEmail(), request.getName(), encodedPassword);
         userRepository.save(user);
     }
 
     @Transactional(readOnly = true)
     public AuthResponse login(AuthRequest request) {
-        User user = userRepository.findByEmail(request.getEmail()).orElseThrow(
-                () -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User not found")
-        );
-        if (!user.getPassword().equals(request.getPassword())) {
+        User user = userRepository.findByEmail(request.getEmail()).orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User not found"));
+        if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Wrong Password");
         }
 
