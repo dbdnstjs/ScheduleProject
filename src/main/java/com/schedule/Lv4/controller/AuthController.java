@@ -31,10 +31,11 @@ public class AuthController {
     }
 
     @PostMapping("/logout")
-    public void logout(HttpServletRequest request) {
+    public String logout(HttpServletRequest request) {
         HttpSession session = request.getSession(false); // 로그인하지 않으면 http세션이 널값으로 반환
         if (session != null) { //로그인이 되면
             session.invalidate(); //세션 데이터 삭제
         }
+        return "로그아웃 성공";
     }
 }

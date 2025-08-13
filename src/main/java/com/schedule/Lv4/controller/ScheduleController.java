@@ -37,7 +37,8 @@ public class ScheduleController {
     }
 
     @DeleteMapping("/{scheduleId}")
-    public void deleteSchedule(@PathVariable("scheduleId") Long scheduleId) {
+    public String deleteSchedule(@PathVariable("scheduleId") Long scheduleId) {
         scheduleService.deleteSchedule(scheduleId);
+        return "일정 삭제 성공";
     }
 }

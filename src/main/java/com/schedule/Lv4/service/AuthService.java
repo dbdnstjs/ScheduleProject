@@ -16,7 +16,7 @@ public class AuthService {
 
     @Transactional
     public void signup(AuthRequest request) {
-        User user = new User(request.getEmail(), request.getPassword());
+        User user = new User(request.getEmail(), request.getName(),  request.getPassword());
         userRepository.save(user);
     }
 
@@ -25,7 +25,6 @@ public class AuthService {
         User user = userRepository.findByEmail(request.getEmail()).orElseThrow(
                 () -> new IllegalArgumentException("Invalid email address provided")
         );
-
         if (!user.getPassword().equals(request.getPassword())) {
             throw new IllegalArgumentException("passwords don't match");
         }

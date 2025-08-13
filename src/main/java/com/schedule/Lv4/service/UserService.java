@@ -17,10 +17,8 @@ public class UserService {
 
     @Transactional
     public UserResponseDto save(UserRequestDto request) {
-        User user = new User(request.getName(), request.getEmail(), request.getPassword());
-
+        User user = new User(request.getEmail(), request.getName(), request.getPassword());
         User saveUser = userRepository.save(user);
-
         //정적 팩토리 메서드 레퍼런스 사용
         return UserResponseDto.of(saveUser);
     }
@@ -45,15 +43,14 @@ public class UserService {
         if (!user.getPassword().equals(request.getPassword())) {
             throw new IllegalArgumentException("passwords don't match");
         }
+        user.updateUser(request.getEmail(), request.getName());
 
-        user.updateUser(request.getName(), request.getEmail());
         return UserResponseDto.of(user);
     }
 
     @Transactional
     public void deleteUser(Long id, UserRequestDto request) {
         User user = userRepository.findByIdOrThrow(id);
-
         if (!user.getPassword().equals(request.getPassword())) {
             throw new IllegalArgumentException("passwords don't match");
         }

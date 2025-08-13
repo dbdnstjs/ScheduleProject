@@ -36,7 +36,8 @@ public class UserController {
     }
 
     @DeleteMapping("/{userId}")
-    public void deleteUser(@PathVariable("userId") Long userId, @RequestBody UserRequestDto request) {
+    public String deleteUser(@PathVariable("userId") Long userId, @RequestBody UserRequestDto request) {
         userService.deleteUser(userId, request);
+        return "사용자 삭제 성공";
     }
 }

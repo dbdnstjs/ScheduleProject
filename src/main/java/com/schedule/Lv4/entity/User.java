@@ -27,14 +27,14 @@ public class User extends Base {
         this.password = password;
     }
 
-    public User(String name, String email, String password) {
-        this.name = name;
+    public User(String email, String name, String password) {
         this.email = email;
+        this.name = name;
         this.password = password;
     }
 
-    public void updateUser(String name, String email) {
-        this.name = name;
+    public void updateUser(String email, String name) {
         this.email = email;
+        this.name = name;
     }
 }

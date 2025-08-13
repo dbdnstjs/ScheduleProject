@@ -10,15 +10,15 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class UserResponseDto {
     private Long id;
-    private String name;
     private String email;
+    private String name;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
     private UserResponseDto(User user) {
         this.id = user.getId();
-        this.name = user.getName();
         this.email = user.getEmail();
+        this.name = user.getName();
         this.createdAt = user.getCreatedAt();
         this.updatedAt = user.getUpdatedAt();
     }

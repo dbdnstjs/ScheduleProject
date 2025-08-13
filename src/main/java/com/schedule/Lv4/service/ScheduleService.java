@@ -35,6 +35,7 @@ public class ScheduleService {
     @Transactional(readOnly = true)
     public ScheduleResponseDto findById(Long id) {
         Schedule schedule = scheduleRepository.findByIdOrThrow(id);
+
         return ScheduleResponseDto.of(schedule);
     }
 
@@ -42,6 +43,7 @@ public class ScheduleService {
     public ScheduleResponseDto updateSchedule(Long id, ScheduleRequestDto request) {
         Schedule schedule = scheduleRepository.findByIdOrThrow(id);
         schedule.updateSchedule(request.getTitle(), request.getContent());
+
         return ScheduleResponseDto.of(schedule);
     }
 
