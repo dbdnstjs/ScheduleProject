@@ -3,6 +3,7 @@ package com.schedule.Lv5.controller;
 import com.schedule.Lv5.dto.UserRequestDto;
 import com.schedule.Lv5.dto.UserResponseDto;
 import com.schedule.Lv5.service.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,12 +27,12 @@ public class UserController {
     }
 
     @PutMapping("/{userId}")
-    public ResponseEntity<UserResponseDto> updateUser(@PathVariable("userId") Long userId, @RequestBody UserRequestDto request) {
+    public ResponseEntity<UserResponseDto> updateUser(@PathVariable("userId") Long userId, @RequestBody @Valid UserRequestDto request) {
         return ResponseEntity.ok(userService.updateUser(userId, request));
     }
 
     @DeleteMapping("/{userId}")
-    public String deleteUser(@PathVariable("userId") Long userId, @RequestBody UserRequestDto request) {
+    public String deleteUser(@PathVariable("userId") Long userId, @RequestBody @Valid UserRequestDto request) {
         userService.deleteUser(userId, request);
         return "사용자 삭제 성공";
     }
