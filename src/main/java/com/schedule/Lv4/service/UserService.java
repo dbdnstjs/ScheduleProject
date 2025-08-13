@@ -5,8 +5,10 @@ import com.schedule.Lv4.dto.UserResponseDto;
 import com.schedule.Lv4.entity.User;
 import com.schedule.Lv4.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -41,7 +43,7 @@ public class UserService {
         User user = userRepository.findByIdOrThrow(id);
 
         if (!user.getPassword().equals(request.getPassword())) {
-            throw new IllegalArgumentException("passwords don't match");
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "passwords don't match");
         }
         user.updateUser(request.getEmail(), request.getName());
 
@@ -51,8 +53,9 @@ public class UserService {
     @Transactional
     public void deleteUser(Long id, UserRequestDto request) {
         User user = userRepository.findByIdOrThrow(id);
+
         if (!user.getPassword().equals(request.getPassword())) {
-            throw new IllegalArgumentException("passwords don't match");
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "passwords don't match");
         }
 
         userRepository.delete(user);
