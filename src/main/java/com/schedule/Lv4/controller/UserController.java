@@ -15,11 +15,6 @@ import java.util.List;
 public class UserController {
     private final UserService userService;
 
-    @PostMapping
-    public ResponseEntity<UserResponseDto> createUser(@RequestBody UserRequestDto request) {
-        return ResponseEntity.ok(userService.save(request));
-    }
-
     @GetMapping
     public ResponseEntity<List<UserResponseDto>> getSchedule() {
         return ResponseEntity.ok(userService.findUsers());
