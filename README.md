@@ -53,9 +53,9 @@
 | :--- | :--- | :--- |
 | `POST` | `/schedules` | **일정 생성**: 새 일정을 생성합니다. |
 | `GET` | `/schedules` | **전체 일정** | **일정 수정**: `scheduleId`에 해당하는 일정을 수정합니다. |
-| `DELETE` | `/schedules/{scheduleI 조회**: 모든 일정을 조회합니다. |
+| `DELETE` | `/schedules/{scheduleId}` | **조회**: 모든 일정을 조회합니다. |
 | `GET` | `/schedules/{scheduleId}` | **특정 일정 조회**: `scheduleId`에 해당하는 일정을 조회합니다. |
-| `PUT` | `/schedules/{scheduleId}`d}` | **일정 삭제**: `scheduleId`에 해당하는 일정을 삭제합니다. |
+| `PUT` | `/schedules/{scheduleId}` | **일정 삭제**: `scheduleId`에 해당하는 일정을 삭제합니다. |
 
 ### 3. 사용자 정보 API
 | HTTP Method | URL | 설명 |
